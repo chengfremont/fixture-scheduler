@@ -4,7 +4,7 @@ import { getSchedule } from './schedule.service';
 
 const app: Application = express();
 
-const port: number = 3000;
+const port: string | number = process.env.PORT || 3000;
 
 app.get('/', (req: Request, res: Response) => {
   res.send('HomePage');
