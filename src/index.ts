@@ -1,6 +1,6 @@
 import express, { Application, Request, Response } from 'express';
 import BigNumber from 'bignumber.js';
-import { getSchedule } from './schedule.service';
+import { getSchedule, validateScheduleQuery } from './schedule.service';
 
 const app: Application = express();
 
@@ -13,21 +13,14 @@ app.get('/', (req: Request, res: Response) => {
 app.get('/get-schedule', (req: Request, res: Response) => {
   const query = req.query;
 
-  const numberOfCandidates = new BigNumber(`${query.numberOfCandidates}`);
-
-  if (!numberOfCandidates || numberOfCandidates.isNaN()) {
-    res.send('MUST HAVE NUMBER OF CANDIDATES QUERY');
+  try {
+    validateScheduleQuery(`${query.numberOfCandidates}`);
+  } catch (error) {
+    res.send(error);
   }
 
-  if (numberOfCandidates.toNumber() % 2 !== 0) {
-    res.send('NUMBER OF CANDIDATES MUST BE EVEN');
-  }
-
-  if (numberOfCandidates.isGreaterThan(new BigNumber(1000))) {
-    res.send('NUMBER OF CANDIDATES MUST BE LESS THAN 1,000');
-  }
-
-  const result = getSchedule(numberOfCandidates.toNumber());
+  const candidateTotal = new BigNumber(`${query.numberOfCandidates}`);
+  const result = getSchedule(candidateTotal.toNumber());
 
   let returnHTML = '<h1>SCHEDULE</h1>';
 
@@ -56,21 +49,14 @@ app.get('/get-schedule', (req: Request, res: Response) => {
 app.get('/get-schedule-raw', (req: Request, res: Response) => {
   const query = req.query;
 
-  const numberOfCandidates = new BigNumber(`${query.numberOfCandidates}`);
-
-  if (!numberOfCandidates || numberOfCandidates.isNaN()) {
-    res.send('MUST HAVE NUMBER OF CANDIDATES QUERY');
+  try {
+    validateScheduleQuery(`${query.numberOfCandidates}`);
+  } catch (error) {
+    res.send(error);
   }
 
-  if (numberOfCandidates.toNumber() % 2 !== 0) {
-    res.send('NUMBER OF CANDIDATES MUST BE EVEN');
-  }
-
-  if (numberOfCandidates.isGreaterThan(new BigNumber(1000))) {
-    res.send('NUMBER OF CANDIDATES MUST BE LESS THAN 1,000');
-  }
-
-  const result = getSchedule(numberOfCandidates.toNumber());
+  const candidateTotal = new BigNumber(`${query.numberOfCandidates}`);
+  const result = getSchedule(candidateTotal.toNumber());
 
   res.send(result);
 })
