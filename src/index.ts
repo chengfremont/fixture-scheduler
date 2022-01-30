@@ -24,7 +24,29 @@ app.get('/get-schedule', (req: Request, res: Response) => {
   }
 
   const result = getSchedule(numberOfCandidates.toNumber());
-  res.send(result);
+
+  let returnHTML = '<h1>SCHEDULE</h1>';
+
+  Object.values(result).forEach((fixture, i) => {
+    const header = `<h2>Week ${i + 1}</h2>`;
+    let table = `<table><tr><th>Home</th><th>Away</th></tr>`;
+
+    fixture.forEach(([home, away]) => {
+
+      const homeCell = `<td>${home}</td>`;
+      const awayCell = `<td>${away}</td>`;
+
+      table += `<tr>${homeCell}${awayCell}</tr>`;
+    }
+
+    );
+
+    table += '</table>';
+
+    returnHTML += `${header}${table}`;
+  });
+
+  res.send(returnHTML);
 })
 
 app.listen(port, () => {
