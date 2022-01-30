@@ -8,6 +8,10 @@ export const validateScheduleQuery = (input: string | number) => {
     throw new Error('MUST HAVE NUMBER OF CANDIDATES QUERY');
   }
 
+  if (!parsedInput.isInteger()) {
+    throw new Error('NUMBER OF CANDIDATES MUST BE AN INTERGER');
+  }
+
   if (parsedInput.isGreaterThan(new BigNumber(500))) {
     throw new Error('NUMBER OF CANDIDATES MUST BE LESS THAN 500');
   }
