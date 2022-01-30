@@ -7,7 +7,7 @@ const app: Application = express();
 const port: string | number = process.env.PORT || 3000;
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('HomePage');
+  res.send('<h1>WELCOME TO FREMONT CHENG\'S HEROKU API</h1>');
 });
 
 app.get('/get-schedule', (req: Request, res: Response) => {
@@ -24,12 +24,7 @@ app.get('/get-schedule', (req: Request, res: Response) => {
   }
 
   const result = getSchedule(numberOfCandidates.toNumber());
-
-  const resultString = Object.values(result).map((item, i) => {
-    return `${i + 1}: ${item.map(item => item.join(' vs ')).join('\n')}`;
-  });
-
-  res.send(resultString);
+  res.send(result);
 })
 
 app.listen(port, () => {
