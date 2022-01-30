@@ -26,10 +26,8 @@ app.get('/get-schedule', (req: Request, res: Response) => {
   const result = getSchedule(numberOfCandidates.toNumber());
 
   const resultString = Object.values(result).map((item, i) => {
-    return `${i + 1}: ${item.map(item => item).join(' vs ')}`;
-  }).join('\n');
-
-  console.log('@resultString', resultString);
+    return `${i + 1}: ${item.map(item => item.join(' vs ')).join('\n')}`;
+  });
 
   res.send(resultString);
 })
