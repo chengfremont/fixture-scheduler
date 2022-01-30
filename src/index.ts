@@ -23,6 +23,10 @@ app.get('/get-schedule', (req: Request, res: Response) => {
     res.send('NUMBER OF CANDIDATES MUST BE EVEN');
   }
 
+  if (numberOfCandidates.isGreaterThan(new BigNumber(10000))) {
+    res.send('NUMBER OF CANDIDATES MUST BE LESS THAN 10,000');
+  }
+
   const result = getSchedule(numberOfCandidates.toNumber());
 
   let returnHTML = '<h1>SCHEDULE</h1>';
@@ -60,6 +64,10 @@ app.get('/get-schedule-raw', (req: Request, res: Response) => {
 
   if (numberOfCandidates.toNumber() % 2 !== 0) {
     res.send('NUMBER OF CANDIDATES MUST BE EVEN');
+  }
+
+  if (numberOfCandidates.isGreaterThan(new BigNumber(10000))) {
+    res.send('NUMBER OF CANDIDATES MUST BE LESS THAN 10,000');
   }
 
   const result = getSchedule(numberOfCandidates.toNumber());
