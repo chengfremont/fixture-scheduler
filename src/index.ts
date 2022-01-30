@@ -15,7 +15,7 @@ app.get('/get-schedule', (req: Request, res: Response) => {
 
   try {
     validateScheduleQuery(`${query.numberOfCandidates}`);
-  } catch (error) {
+  } catch (error: any) {
     res.status(404).send(error.message);
   }
 
@@ -51,7 +51,7 @@ app.get('/get-schedule-raw', (req: Request, res: Response) => {
 
   try {
     validateScheduleQuery(`${query.numberOfCandidates}`);
-  } catch (error) {
+  } catch (error: any) {
     res.status(404).send(error.message);
   }
 
