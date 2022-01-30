@@ -16,7 +16,7 @@ app.get('/get-schedule', (req: Request, res: Response) => {
   try {
     validateScheduleQuery(`${query.numberOfCandidates}`);
   } catch (error) {
-    res.send(error);
+    res.status(404).send(error.message);
   }
 
   const candidateTotal = new BigNumber(`${query.numberOfCandidates}`);
@@ -52,7 +52,7 @@ app.get('/get-schedule-raw', (req: Request, res: Response) => {
   try {
     validateScheduleQuery(`${query.numberOfCandidates}`);
   } catch (error) {
-    res.send(error);
+    res.status(404).send(error.message);
   }
 
   const candidateTotal = new BigNumber(`${query.numberOfCandidates}`);
