@@ -8,8 +8,8 @@ export const validateScheduleQuery = (input: string | number) => {
     throw new Error('MUST HAVE NUMBER OF CANDIDATES QUERY');
   }
 
-  if (parsedInput.isGreaterThan(new BigNumber(1000))) {
-    throw new Error('NUMBER OF CANDIDATES MUST BE LESS THAN 1,000');
+  if (parsedInput.isGreaterThan(new BigNumber(500))) {
+    throw new Error('NUMBER OF CANDIDATES MUST BE LESS THAN 500');
   }
 
   if (parsedInput.toNumber() % 2 !== 0) {
